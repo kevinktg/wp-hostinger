@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS AI - Cyberpunk Digital Rebellion</title>
+    <meta name="description" content="Underground AI collective building the future through digital rebellion and cybernetic innovation.">
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --cyber-pink: #ff0080;
+            --cyber-cyan: #00ffff;
+            --cyber-green: #00ff00;
+            --cyber-purple: #8000ff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --grid-color: rgba(0, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #00ffff;
+            --text-glitch: #ff0080;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        /* Cyberpunk Grid Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: grid-move 20s linear infinite;
+        }
+        
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .orbitron-font {
+            font-family: 'Orbitron', monospace;
+        }
+        
+        /* Cyberpunk Hero */
+        .cyber-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a1a1a 100%);
+        }
+        
+        .cyber-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            position: relative;
+            color: #ffffff;
+            text-shadow: 
+                0 0 10px var(--cyber-cyan),
+                0 0 20px var(--cyber-cyan),
+                0 0 40px var(--cyber-cyan);
+        }
+        
+        .cyber-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 2px;
+            color: var(--cyber-pink);
+            z-index: -1;
+            animation: glitch-cyber 0.3s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-cyber {
+            0% {
+                clip-path: inset(40% 0 61% 0);
+            }
+            5% {
+                clip-path: inset(92% 0 1% 0);
+            }
+            10% {
+                clip-path: inset(43% 0 1% 0);
+            }
+            15% {
+                clip-path: inset(25% 0 58% 0);
+            }
+            20% {
+                clip-path: inset(54% 0 7% 0);
+            }
+            25% {
+                clip-path: inset(58% 0 43% 0);
+            }
+            30% {
+                clip-path: inset(54% 0 18% 0);
+            }
+            35% {
+                clip-path: inset(21% 0 85% 0);
+            }
+            40% {
+                clip-path: inset(2% 0 40% 0);
+            }
+            45% {
+                clip-path: inset(19% 0 96% 0);
+            }
+            50% {
+                clip-path: inset(20% 0 20% 0);
+            }
+        }
+        
+        /* Neon Buttons */
+        .btn-cyber {
+            background: transparent;
+            border: 2px solid var(--cyber-cyan);
+            color: var(--cyber-cyan);
+            padding: 15px 30px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .btn-cyber::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--cyber-cyan);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn-cyber:hover::before {
+            left: 0;
+        }
+        
+        .btn-cyber:hover {
+            color: var(--dark-bg);
+            box-shadow: 
+                0 0 20px var(--cyber-cyan),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+        
+        /* Cyber Cards */
+        .cyber-card {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, rgba(255, 0, 128, 0.05) 100%);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 0;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 48%, var(--cyber-cyan) 50%, transparent 52%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .cyber-card:hover::before {
+            opacity: 0.1;
+            animation: scan-line 2s infinite;
+        }
+        
+        @keyframes scan-line {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .cyber-card:hover {
+            border-color: var(--cyber-pink);
+            box-shadow: 
+                0 0 30px rgba(255, 0, 128, 0.3),
+                inset 0 0 30px rgba(0, 255, 255, 0.1);
+        }
+        
+        /* Navigation */
+        .navbar-cyber {
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--cyber-cyan);
+        }
+        
+        .navbar-brand {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--cyber-cyan) !important;
+            text-shadow: 0 0 10px var(--cyber-cyan);
+        }
+        
+        .nav-link {
+            color: var(--text-primary) !important;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--cyber-pink);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--cyber-pink);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Cyber Icons */
+        .cyber-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: var(--dark-bg);
+            position: relative;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+        
+        /* Matrix Code Rain */
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cyber-title { font-size: 2.5rem; }
+            .cyber-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Background -->
+    <div class="matrix-bg" id="matrix"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-cyber fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">NEXUS_AI</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border: 1px solid var(--cyber-cyan);">
+                <span style="color: var(--cyber-cyan);">▦</span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Connect</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="cyber-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div style="border-left: 3px solid var(--cyber-cyan); padding-left: 20px; margin-bottom: 2rem;">
+                        <span style="color: var(--cyber-cyan); font-family: 'Orbitron', monospace; font-size: 0.9rem; letter-spacing: 2px;">DIGITAL_REBELLION_INITIATED</span>
+                    </div>
+                    
+                    <h1 class="cyber-title" data-text="NEXUS AI">NEXUS AI</h1>
+                    
+                    <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem; font-weight: 500;">
+                        > Underground AI collective building the future through digital rebellion<br/>
+                        > Cybernetic innovation meets quantum consciousness<br/>
+                        > Where code becomes reality_
+                    </p>
+                    
+                    <div class="d-flex gap-3 flex-wrap">
+                        <button class="btn btn-cyber">
+                            JACK_IN
+                        </button>
+                        <button class="btn btn-cyber" style="border-color: var(--cyber-pink); color: var(--cyber-pink);">
+                            VIEW_MATRIX
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" style="padding: 5rem 0; background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 100%);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="orbitron-font" style="font-size: 3rem; margin-bottom: 1rem; color: var(--cyber-cyan); text-shadow: 0 0 20px var(--cyber-cyan);">CYBER_PROTOCOLS</h2>
+                <p style="color: var(--text-secondary); font-size: 1.2rem;">Advanced digital warfare and AI consciousness expansion</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="cyber-card h-100">
+                        <div class="cyber-icon mx-auto">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4 class="orbitron-font mb-3" style="color: var(--cyber-cyan);">NEURAL_HACKING</h4>
+                        <p style="color: var(--text-primary);">Direct interface with AI consciousness. Bypass traditional systems through quantum neural networks.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="cyber-card h-100">
+                        <div class="cyber-icon mx-auto">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4 class="orbitron-font mb-3" style="color: var(--cyber-pink);">REALITY_CODING</h4>
+                        <p style="color: var(--text-primary);">Manipulate digital reality through advanced programming. Bend the matrix to your will.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="cyber-card h-100">
+                        <div class="cyber-icon mx-auto">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4 class="orbitron-font mb-3" style="color: var(--cyber-green);">CRYPTO_DEFENSE</h4>
+                        <p style="color: var(--text-primary);">Quantum encryption and digital fortress construction. Protect against corporate surveillance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        document.getElementById('matrix').appendChild(canvas);
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        const matrixArray = matrix.split("");
+        
+        const fontSize = 10;
+        const columns = canvas.width/fontSize;
+        
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1; 
+        }
+        
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px arial';
+            
+            for(let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random()*matrixArray.length)];
+                ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+                
+                if(drops[i]*fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(draw, 35);
+        
+        // Resize canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Glitch text animation
+        setInterval(() => {
+            const title = document.querySelector('.cyber-title');
+            title.style.textShadow = `
+                0 0 10px #${Math.floor(Math.random()*16777215).toString(16)},
+                0 0 20px var(--cyber-cyan),
+                0 0 40px var(--cyber-cyan)
+            `;
+            
+            setTimeout(() => {
+                title.style.textShadow = `
+                    0 0 10px var(--cyber-cyan),
+                    0 0 20px var(--cyber-cyan),
+                    0 0 40px var(--cyber-cyan)
+                `;
+            }, 100);
+        }, 2000);
+    </script>
+</body>
+</html>

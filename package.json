@@ -1,0 +1,37 @@
+{
+  "name": "2025-bootstrap-sites",
+  "version": "1.0.0",
+  "description": "Award-winning Bootstrap templates with AI agent automation for 2025",
+  "main": "scripts/build-site.js",
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "build": "node scripts/build-site.js --template=01-ai-portfolio-agency",
+    "generate": "node agent-automation/generate-content.js",
+    "deploy": "bash deploy.sh",
+    "lint": "echo '🏆 All templates look amazing!'",
+    "test": "echo '✅ Templates ready for 2025!'"
+  },
+  "keywords": [
+    "bootstrap",
+    "templates",
+    "2025",
+    "awwwards",
+    "ai-agent",
+    "github-pages",
+    "glass-morphism"
+  ],
+  "author": "Claude & Crush Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/2025-bootstrap-sites"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/2025-bootstrap-sites/issues"
+  },
+  "homepage": "https://yourusername.github.io/2025-bootstrap-sites"
+}

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus AI Solutions - Enterprise Technology Partner</title>
+    <meta name="description" content="Leading enterprise AI solutions provider delivering transformational technology services to Fortune 500 companies worldwide.">
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --corporate-blue: #1e40af;
+            --corporate-navy: #1e293b;
+            --corporate-gray: #64748b;
+            --corporate-light: #f8fafc;
+            --corporate-white: #ffffff;
+            --corporate-accent: #3b82f6;
+            --corporate-success: #059669;
+            --gradient-corporate: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            --gradient-subtle: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--corporate-white);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        
+        .serif-font {
+            font-family: 'IBM Plex Serif', serif;
+        }
+        
+        /* Professional Hero */
+        .corporate-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--gradient-subtle);
+            position: relative;
+        }
+        
+        .corporate-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+            clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        
+        .corporate-title {
+            font-family: 'IBM Plex Serif', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--corporate-navy);
+            letter-spacing: -0.02em;
+        }
+        
+        .corporate-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            max-width: 600px;
+        }
+        
+        /* Professional Cards */
+        .corporate-card {
+            background: var(--corporate-white);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            height: 100%;
+        }
+        
+        .corporate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--gradient-corporate);
+            transition: height 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .corporate-card:hover::before {
+            height: 100%;
+        }
+        
+        .corporate-card:hover {
+            box-shadow: 0 10px 40px rgba(30, 64, 175, 0.1);
+            transform: translateY(-2px);
+            border-color: var(--corporate-accent);
+        }
+        
+        /* Professional Icons */
+        .corporate-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-corporate);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        /* Navigation */
+        .navbar-corporate {
+            background: var(--corporate-white);
+            box-shadow: 0 2px 10px rgba(30, 64, 175, 0.1);
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            font-family: 'IBM Plex Serif', serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--corporate-navy) !important;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem !important;
+            border-radius: 6px;
+        }
+        
+        .nav-link:hover {
+            color: var(--corporate-blue) !important;
+            background: rgba(30, 64, 175, 0.05);
+        }
+        
+        /* Professional Buttons */
+        .btn-corporate {
+            background: var(--gradient-corporate);
+            border: none;
+            color: white;
+            padding: 12px 32px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-corporate:hover {
+            background: var(--corporate-navy);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+        }
+        
+        .btn-corporate-outline {
+            background: transparent;
+            border: 2px solid var(--corporate-blue);
+            color: var(--corporate-blue);
+            padding: 10px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-corporate-outline:hover {
+            background: var(--corporate-blue);
+            color: white;
+        }
+        
+        /* Statistics Section */
+        .stat-number {
+            font-family: 'IBM Plex Serif', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--corporate-blue);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: 'IBM Plex Serif', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--corporate-navy);
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Professional Features */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--corporate-success);
+            font-weight: 700;
+            width: 1.5rem;
+        }
+        
+        /* Contact Form */
+        .form-control-corporate {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control-corporate:focus {
+            border-color: var(--corporate-blue);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+        
+        /* Professional Layout */
+        .section-padding {
+            padding: 5rem 0;
+        }
+        
+        .bg-corporate {
+            background: var(--gradient-subtle);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .corporate-title { font-size: 2.5rem; }
+            .corporate-card { padding: 2rem; }
+            .section-title { font-size: 2rem; }
+        }
+        
+        /* Professional Accents */
+        .accent-line {
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-corporate);
+            margin: 0 auto 2rem auto;
+            border-radius: 2px;
+        }
+        
+        .text-corporate {
+            color: var(--corporate-blue);
+        }
+        
+        .bg-light-corporate {
+            background: rgba(30, 64, 175, 0.03);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-corporate fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">Nexus AI Solutions</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#solutions">Solutions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="corporate-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div style="margin-bottom: 1.5rem;">
+                        <span class="badge text-corporate" style="background: rgba(30, 64, 175, 0.1); padding: 8px 16px; border-radius: 20px; font-weight: 500;">Enterprise AI Solutions</span>
+                    </div>
+                    
+                    <h1 class="corporate-title">Transforming Business Through Intelligent Technology</h1>
+                    
+                    <p class="corporate-subtitle">
+                        We partner with leading organizations to implement cutting-edge AI solutions that drive measurable business outcomes and competitive advantage in the digital economy.
+                    </p>
+                    
+                    <div class="d-flex gap-3 flex-wrap">
+                        <button class="btn btn-corporate">
+                            Schedule Consultation
+                        </button>
+                        <button class="btn btn-corporate-outline">
+                            View Case Studies
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Statistics Section -->
+    <section style="padding: 3rem 0; background: var(--corporate-white); border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md-3 col-6">
+                    <span class="stat-number">500+</span>
+                    <div class="stat-label">Enterprise Clients</div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <span class="stat-number">$2B+</span>
+                    <div class="stat-label">Value Generated</div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <span class="stat-number">95%</span>
+                    <div class="stat-label">Client Retention</div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <span class="stat-number">24/7</span>
+                    <div class="stat-label">Global Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="section-padding bg-corporate">
+        <div class="container">
+            <div class="section-header">
+                <div class="accent-line"></div>
+                <h2 class="section-title">Enterprise AI Services</h2>
+                <p class="section-subtitle">
+                    Comprehensive artificial intelligence solutions designed to accelerate digital transformation and optimize business operations.
+                </p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="corporate-card">
+                        <div class="corporate-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h4 class="serif-font mb-3" style="color: var(--corporate-navy);">Process Automation</h4>
+                        <p class="mb-4" style="color: var(--text-secondary);">Streamline operations with intelligent automation solutions that reduce costs and improve efficiency across your organization.</p>
+                        <ul class="feature-list">
+                            <li>Workflow Optimization</li>
+                            <li>Document Processing</li>
+                            <li>Quality Assurance</li>
+                            <li>Compliance Management</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="corporate-card">
+                        <div class="corporate-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4 class="serif-font mb-3" style="color: var(--corporate-navy);">Predictive Analytics</h4>
+                        <p class="mb-4" style="color: var(--text-secondary);">Leverage advanced machine learning to forecast trends, optimize resources, and make data-driven strategic decisions.</p>
+                        <ul class="feature-list">
+                            <li>Demand Forecasting</li>
+                            <li>Risk Assessment</li>
+                            <li>Performance Modeling</li>
+                            <li>Market Analysis</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="corporate-card">
+                        <div class="corporate-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4 class="serif-font mb-3" style="color: var(--corporate-navy);">AI Security & Compliance</h4>
+                        <p class="mb-4" style="color: var(--text-secondary);">Protect your AI investments with enterprise-grade security frameworks and regulatory compliance solutions.</p>
+                        <ul class="feature-list">
+                            <li>Data Governance</li>
+                            <li>Model Validation</li>
+                            <li>Audit Trails</li>
+                            <li>Privacy Protection</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="corporate-card">
+                        <div class="corporate-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4 class="serif-font mb-3" style="color: var(--corporate-navy);">Customer Intelligence</h4>
+                        <p class="mb-4" style="color: var(--text-secondary);">Understand and engage customers better with AI-powered insights that drive personalization and loyalty.</p>
+                        <ul class="feature-list">
+                            <li>Behavioral Analysis</li>
+                            <li>Segmentation</li>
+                            <li>Recommendation Engines</li>
+                            <li>Sentiment Analysis</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="corporate-card">
+                        <div class="corporate-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4 class="serif-font mb-3" style="color: var(--corporate-navy);">Custom AI Development</h4>
+                        <p class="mb-4" style="color: var(--text-secondary);">Build bespoke AI solutions tailored to your specific business requirements and industry challenges.</p>
+                        <ul class="feature-list">
+                            <li>Algorithm Design</li>
+                            <li>Model Training</li>
+                            <li>Integration Services</li>
+                            <li>Ongoing Optimization</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="corporate-card">
+                        <div class="corporate-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4 class="serif-font mb-3" style="color: var(--corporate-navy);">AI Training & Support</h4>
+                        <p class="mb-4" style="color: var(--text-secondary);">Empower your teams with comprehensive AI education and ongoing technical support services.</p>
+                        <ul class="feature-list">
+                            <li>Executive Workshops</li>
+                            <li>Technical Training</li>
+                            <li>Best Practices</li>
+                            <li>24/7 Support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="section-header">
+                        <div class="accent-line"></div>
+                        <h2 class="section-title">Ready to Transform Your Business?</h2>
+                        <p class="section-subtitle">
+                            Contact our enterprise AI specialists to discuss your specific requirements and explore how we can drive your digital transformation.
+                        </p>
+                    </div>
+                    
+                    <form class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label" style="font-weight: 600;">Full Name</label>
+                            <input type="text" class="form-control form-control-corporate" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" style="font-weight: 600;">Business Email</label>
+                            <input type="email" class="form-control form-control-corporate" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" style="font-weight: 600;">Company</label>
+                            <input type="text" class="form-control form-control-corporate" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" style="font-weight: 600;">Industry</label>
+                            <select class="form-control form-control-corporate" required>
+                                <option value="">Select Industry</option>
+                                <option value="financial">Financial Services</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="retail">Retail & E-commerce</option>
+                                <option value="technology">Technology</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" style="font-weight: 600;">Project Requirements</label>
+                            <textarea class="form-control form-control-corporate" rows="5" placeholder="Please describe your AI initiative requirements and objectives..." required></textarea>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-corporate btn-lg px-5">
+                                Schedule Enterprise Consultation
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Form submission handling
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Scheduling Consultation...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.textContent = 'Consultation Scheduled ✓';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                    this.reset();
+                }, 3000);
+            }, 2000);
+        });
+        
+        // Professional counter animation
+        const animateCounters = () => {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = counter.textContent.replace(/[^0-9]/g, '');
+                const suffix = counter.textContent.replace(/[0-9]/g, '');
+                let current = 0;
+                const increment = target / 50;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current) + suffix;
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target + suffix;
+                    }
+                };
+                
+                updateCounter();
+            });
+        };
+        
+        // Trigger counter animation when in view
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe the statistics section
+        const statsSection = document.querySelector('.stat-number').closest('section');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+    </script>
+</body>
+</html>

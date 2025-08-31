@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus AI - Creative Innovation Studio</title>
+    <meta name="description" content="Where creativity meets AI - Building vibrant digital experiences that inspire and transform the world.">
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --vibrant-pink: #ff006e;
+            --vibrant-blue: #0077ff;
+            --vibrant-green: #00d4aa;
+            --vibrant-orange: #ff7b00;
+            --vibrant-purple: #7b00ff;
+            --vibrant-yellow: #ffcf00;
+            --gradient-rainbow: linear-gradient(45deg, #ff006e, #0077ff, #00d4aa, #ff7b00, #7b00ff);
+            --gradient-sunset: linear-gradient(135deg, #ff7b00 0%, #ff006e 50%, #7b00ff 100%);
+            --gradient-ocean: linear-gradient(135deg, #0077ff 0%, #00d4aa 100%);
+            --text-dark: #2d3748;
+            --text-light: #ffffff;
+            --bg-light: #fafafa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        
+        .fredoka-font {
+            font-family: 'Fredoka', cursive;
+        }
+        
+        /* Animated Background */
+        .colorful-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #ff006e, #0077ff, #00d4aa, #ff7b00);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            opacity: 0.1;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Floating Shapes */
+        .floating-shape {
+            position: absolute;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-sunset);
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+        
+        .floating-shape:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-ocean);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation-delay: 2s;
+        }
+        
+        .floating-shape:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            width: 40px;
+            height: 40px;
+            background: var(--vibrant-yellow);
+            border-radius: 8px;
+            transform: rotate(45deg);
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+        
+        /* Hero Section */
+        .vibrant-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 250, 250, 0.8) 100%);
+        }
+        
+        .vibrant-title {
+            font-family: 'Fredoka', cursive;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-rainbow);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowShift 3s ease-in-out infinite;
+        }
+        
+        @keyframes rainbowShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Colorful Cards */
+        .vibrant-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+        }
+        
+        .vibrant-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-rainbow);
+            border-radius: 24px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .vibrant-card:hover::before {
+            opacity: 1;
+        }
+        
+        .vibrant-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Colorful Icons */
+        .vibrant-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .vibrant-icon-1 { background: var(--gradient-sunset); }
+        .vibrant-icon-2 { background: var(--gradient-ocean); }
+        .vibrant-icon-3 { background: linear-gradient(135deg, var(--vibrant-purple), var(--vibrant-pink)); }
+        .vibrant-icon-4 { background: linear-gradient(135deg, var(--vibrant-green), var(--vibrant-yellow)); }
+        .vibrant-icon-5 { background: linear-gradient(135deg, var(--vibrant-blue), var(--vibrant-purple)); }
+        .vibrant-icon-6 { background: linear-gradient(135deg, var(--vibrant-orange), var(--vibrant-pink)); }
+        
+        .vibrant-card:hover .vibrant-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        /* Navigation */
+        .navbar-vibrant {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-family: 'Fredoka', cursive;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: var(--gradient-sunset);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--gradient-rainbow);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Colorful Buttons */
+        .btn-vibrant {
+            background: var(--gradient-sunset);
+            border: none;
+            color: white;
+            padding: 15px 35px;
+            font-weight: 600;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-vibrant::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-ocean);
+            transition: left 0.4s ease;
+        }
+        
+        .btn-vibrant:hover::before {
+            left: 0;
+        }
+        
+        .btn-vibrant:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.4);
+        }
+        
+        .btn-vibrant span {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: 'Fredoka', cursive;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-rainbow);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowShift 4s ease-in-out infinite;
+        }
+        
+        /* Emoji Decorations */
+        .emoji-decoration {
+            font-size: 2rem;
+            display: inline-block;
+            animation: bounce 2s infinite;
+            margin: 0 0.5rem;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .vibrant-title { font-size: 2.5rem; }
+            .vibrant-card { padding: 2rem; }
+            .section-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="colorful-bg"></div>
+    
+    <!-- Floating Shapes -->
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-vibrant fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">Nexus AI ✨</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Work</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Connect</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="vibrant-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div style="margin-bottom: 2rem;">
+                        <span class="emoji-decoration">🚀</span>
+                        <span style="color: var(--vibrant-pink); font-weight: 600; font-size: 1.1rem;">Creative AI Innovation</span>
+                        <span class="emoji-decoration">✨</span>
+                    </div>
+                    
+                    <h1 class="vibrant-title">Where Creativity Meets Intelligence</h1>
+                    
+                    <p style="font-size: 1.3rem; color: var(--text-dark); margin-bottom: 2.5rem; font-weight: 500;">
+                        We blend vibrant creativity with cutting-edge AI to build digital experiences that inspire, engage, and transform the world. 🎨🤖
+                    </p>
+                    
+                    <div class="d-flex gap-3 flex-wrap">
+                        <button class="btn btn-vibrant">
+                            <span>Start Creating 🎉</span>
+                        </button>
+                        <button class="btn btn-vibrant" style="background: var(--gradient-ocean);">
+                            <span>Explore Magic ✨</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Creative Superpowers</h2>
+                <p style="font-size: 1.2rem; color: var(--text-dark); max-width: 600px; margin: 0 auto;">
+                    Unleashing the full potential of AI creativity across every digital touchpoint 🌈
+                </p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="vibrant-card h-100">
+                        <div class="vibrant-icon vibrant-icon-1 mx-auto">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4 class="fredoka-font mb-3" style="color: var(--vibrant-pink);">Creative AI Solutions 🎨</h4>
+                        <p>Transform ideas into reality with AI-powered creativity that thinks outside the box and delivers stunning results.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="vibrant-card h-100">
+                        <div class="vibrant-icon vibrant-icon-2 mx-auto">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h4 class="fredoka-font mb-3" style="color: var(--vibrant-blue);">Vibrant Design Systems 🌈</h4>
+                        <p>Colorful, engaging designs that capture attention and create memorable brand experiences across all platforms.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="vibrant-card h-100">
+                        <div class="vibrant-icon vibrant-icon-3 mx-auto">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h4 class="fredoka-font mb-3" style="color: var(--vibrant-purple);">Interactive Experiences 🚀</h4>
+                        <p>Build engaging, interactive digital products that users love to explore and share with their networks.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="vibrant-card h-100">
+                        <div class="vibrant-icon vibrant-icon-4 mx-auto">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4 class="fredoka-font mb-3" style="color: var(--vibrant-green);">Mobile Magic ✨</h4>
+                        <p>Beautiful mobile applications that bring joy to everyday interactions and make complex tasks feel effortless.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="vibrant-card h-100">
+                        <div class="vibrant-icon vibrant-icon-5 mx-auto">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4 class="fredoka-font mb-3" style="color: var(--vibrant-blue);">Growth Strategies 📈</h4>
+                        <p>Data-driven marketing approaches that amplify your brand's reach and create meaningful connections with audiences.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="vibrant-card h-100">
+                        <div class="vibrant-icon vibrant-icon-6 mx-auto">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4 class="fredoka-font mb-3" style="color: var(--vibrant-orange);">Brand Love 💖</h4>
+                        <p>Crafting brands that people genuinely love and want to be part of - creating emotional connections that last.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Add some interactive sparkles on click
+        document.addEventListener('click', function(e) {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = e.clientX + 'px';
+            sparkle.style.top = e.clientY + 'px';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.fontSize = '20px';
+            sparkle.style.zIndex = '9999';
+            sparkle.style.animation = 'sparkleAnimation 1s ease-out forwards';
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                document.body.removeChild(sparkle);
+            }, 1000);
+        });
+        
+        // Add CSS for sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkleAnimation {
+                0% {
+                    transform: scale(0) rotate(0deg);
+                    opacity: 1;
+                }
+                50% {
+                    transform: scale(1.2) rotate(180deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(0) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

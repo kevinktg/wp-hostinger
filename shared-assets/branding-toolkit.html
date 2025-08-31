@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Builder Toolkit - 2025 Bootstrap Sites</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Color Picker -->
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --primary-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .color-swatch:hover {
+            transform: scale(1.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .font-preview {
+            padding: 1rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .font-preview:hover {
+            border-color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
+        }
+        
+        .font-preview.selected {
+            border-color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .logo-canvas {
+            background: var(--dark-surface);
+            border: 2px dashed var(--glass-border);
+            border-radius: 12px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .brand-preview {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            min-height: 300px;
+        }
+        
+        .mockup-phone {
+            width: 200px;
+            height: 400px;
+            background: #1a1a1a;
+            border-radius: 25px;
+            border: 8px solid #2a2a2a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mockup-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            border-radius: 17px;
+            padding: 1rem;
+            font-size: 0.8rem;
+        }
+        
+        .form-control-custom {
+            background: var(--dark-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 0.75rem;
+        }
+        
+        .form-control-custom:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            background: var(--dark-surface);
+            color: var(--text-primary);
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+        }
+        
+        .color-palette-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .palette-item {
+            text-align: center;
+        }
+        
+        .palette-item small {
+            display: block;
+            margin-top: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+        
+        .export-format {
+            padding: 1rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .export-format:hover {
+            border-color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
+        }
+        
+        .social-mockup {
+            background: var(--dark-surface);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .social-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+            <!-- Sidebar -->
+            <div class="col-md-3 p-4" style="background: var(--dark-surface);">
+                <h2 class="h4 mb-4">
+                    <i class="fas fa-palette me-2 text-primary"></i>
+                    Brand Builder
+                </h2>
+                
+                <nav class="nav flex-column">
+                    <a href="#brand-basics" class="nav-link text-light"><i class="fas fa-info-circle me-2"></i>Brand Basics</a>
+                    <a href="#colors" class="nav-link text-light"><i class="fas fa-paint-brush me-2"></i>Colors</a>
+                    <a href="#typography" class="nav-link text-light"><i class="fas fa-font me-2"></i>Typography</a>
+                    <a href="#logo" class="nav-link text-light"><i class="fas fa-star me-2"></i>Logo</a>
+                    <a href="#preview" class="nav-link text-light"><i class="fas fa-eye me-2"></i>Preview</a>
+                    <a href="#export" class="nav-link text-light"><i class="fas fa-download me-2"></i>Export</a>
+                </nav>
+                
+                <div class="mt-4">
+                    <button class="btn btn-primary-custom w-100" onclick="generateBrand()">
+                        <i class="fas fa-magic me-2"></i>AI Generate Brand
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 p-4">
+                <!-- Brand Basics -->
+                <section id="brand-basics" class="mb-5">
+                    <div class="glass-card">
+                        <h3 class="mb-4">Brand Basics</h3>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Company Name</label>
+                                <input type="text" class="form-control form-control-custom" id="companyName" placeholder="Enter your company name">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Industry</label>
+                                <select class="form-control form-control-custom" id="industry">
+                                    <option>Technology</option>
+                                    <option>Healthcare</option>
+                                    <option>Finance</option>
+                                    <option>E-commerce</option>
+                                    <option>Non-profit</option>
+                                    <option>Education</option>
+                                    <option>Creative</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Brand Personality</label>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <button type="button" class="btn btn-outline-light btn-sm personality-tag" data-personality="innovative">Innovative</button>
+                                    <button type="button" class="btn btn-outline-light btn-sm personality-tag" data-personality="trustworthy">Trustworthy</button>
+                                    <button type="button" class="btn btn-outline-light btn-sm personality-tag" data-personality="playful">Playful</button>
+                                    <button type="button" class="btn btn-outline-light btn-sm personality-tag" data-personality="professional">Professional</button>
+                                    <button type="button" class="btn btn-outline-light btn-sm personality-tag" data-personality="bold">Bold</button>
+                                    <button type="button" class="btn btn-outline-light btn-sm personality-tag" data-personality="elegant">Elegant</button>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Brand Description</label>
+                                <textarea class="form-control form-control-custom" id="brandDescription" rows="3" placeholder="Describe your brand in a few sentences..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Colors -->
+                <section id="colors" class="mb-5">
+                    <div class="glass-card">
+                        <h3 class="mb-4">Color Palette</h3>
+                        
+                        <div class="color-palette-grid">
+                            <div class="palette-item">
+                                <div class="color-swatch" id="primaryColor" data-color="#2563eb" style="background: #2563eb;"></div>
+                                <small>Primary</small>
+                            </div>
+                            <div class="palette-item">
+                                <div class="color-swatch" id="secondaryColor" data-color="#8b5cf6" style="background: #8b5cf6;"></div>
+                                <small>Secondary</small>
+                            </div>
+                            <div class="palette-item">
+                                <div class="color-swatch" id="accentColor" data-color="#10b981" style="background: #10b981;"></div>
+                                <small>Accent</small>
+                            </div>
+                            <div class="palette-item">
+                                <div class="color-swatch" id="neutralColor" data-color="#6b7280" style="background: #6b7280;"></div>
+                                <small>Neutral</small>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Predefined Palettes</h5>
+                                <div class="palette-presets">
+                                    <div class="d-flex gap-2 mb-2 align-items-center cursor-pointer preset-palette" 
+                                         data-palette='{"primary":"#2563eb","secondary":"#8b5cf6","accent":"#10b981","neutral":"#6b7280"}'>
+                                        <div style="width:20px;height:20px;background:#2563eb;border-radius:4px;"></div>
+                                        <div style="width:20px;height:20px;background:#8b5cf6;border-radius:4px;"></div>
+                                        <div style="width:20px;height:20px;background:#10b981;border-radius:4px;"></div>
+                                        <span class="ms-2">Professional Blue</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mb-2 align-items-center cursor-pointer preset-palette" 
+                                         data-palette='{"primary":"#f59e0b","secondary":"#ef4444","accent":"#ec4899","neutral":"#6b7280"}'>
+                                        <div style="width:20px;height:20px;background:#f59e0b;border-radius:4px;"></div>
+                                        <div style="width:20px;height:20px;background:#ef4444;border-radius:4px;"></div>
+                                        <div style="width:20px;height:20px;background:#ec4899;border-radius:4px;"></div>
+                                        <span class="ms-2">Vibrant Warm</span>
+                                    </div>
+                                    <div class="d-flex gap-2 mb-2 align-items-center cursor-pointer preset-palette" 
+                                         data-palette='{"primary":"#059669","secondary":"#0d9488","accent":"#06b6d4","neutral":"#64748b"}'>
+                                        <div style="width:20px;height:20px;background:#059669;border-radius:4px;"></div>
+                                        <div style="width:20px;height:20px;background:#0d9488;border-radius:4px;"></div>
+                                        <div style="width:20px;height:20px;background:#06b6d4;border-radius:4px;"></div>
+                                        <span class="ms-2">Natural Green</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>AI Color Suggestions</h5>
+                                <button class="btn btn-outline-light btn-sm" onclick="generateAIColors()">
+                                    <i class="fas fa-robot me-2"></i>Generate AI Colors
+                                </button>
+                                <div id="aiColorSuggestions" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Typography -->
+                <section id="typography" class="mb-5">
+                    <div class="glass-card">
+                        <h3 class="mb-4">Typography</h3>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Heading Font</h5>
+                                <div class="font-preview" data-font="Inter" style="font-family: 'Inter', sans-serif;">
+                                    <h4 class="mb-1">Inter</h4>
+                                    <p class="mb-0 text-secondary">Modern and versatile sans-serif</p>
+                                </div>
+                                <div class="font-preview" data-font="Sora" style="font-family: 'Sora', sans-serif;">
+                                    <h4 class="mb-1">Sora</h4>
+                                    <p class="mb-0 text-secondary">Geometric and contemporary</p>
+                                </div>
+                                <div class="font-preview" data-font="Space Grotesk" style="font-family: 'Space Grotesk', sans-serif;">
+                                    <h4 class="mb-1">Space Grotesk</h4>
+                                    <p class="mb-0 text-secondary">Tech-forward and bold</p>
+                                </div>
+                                <div class="font-preview" data-font="Playfair Display" style="font-family: 'Playfair Display', serif;">
+                                    <h4 class="mb-1">Playfair Display</h4>
+                                    <p class="mb-0 text-secondary">Elegant and sophisticated</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Body Font</h5>
+                                <div class="font-preview body-font" data-font="Inter" style="font-family: 'Inter', sans-serif;">
+                                    <p class="mb-1">Inter Regular</p>
+                                    <small class="text-secondary">The quick brown fox jumps over the lazy dog.</small>
+                                </div>
+                                <div class="font-preview body-font" data-font="Open Sans" style="font-family: 'Open Sans', sans-serif;">
+                                    <p class="mb-1">Open Sans</p>
+                                    <small class="text-secondary">The quick brown fox jumps over the lazy dog.</small>
+                                </div>
+                                <div class="font-preview body-font" data-font="Source Sans Pro" style="font-family: 'Source Sans Pro', sans-serif;">
+                                    <p class="mb-1">Source Sans Pro</p>
+                                    <small class="text-secondary">The quick brown fox jumps over the lazy dog.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Logo Builder -->
+                <section id="logo" class="mb-5">
+                    <div class="glass-card">
+                        <h3 class="mb-4">Logo Builder</h3>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="logo-canvas" id="logoCanvas">
+                                    <div class="text-center">
+                                        <i class="fas fa-image fa-3x text-muted mb-3"></i>
+                                        <p class="text-muted">Your logo will appear here</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3">
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <button class="btn btn-outline-light btn-sm w-100" onclick="generateTextLogo()">
+                                                <i class="fas fa-font me-2"></i>Text Logo
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-outline-light btn-sm w-100" onclick="generateIconLogo()">
+                                                <i class="fas fa-shapes me-2"></i>Icon Logo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h5>Logo Style</h5>
+                                <div class="d-flex gap-2 flex-wrap mb-3">
+                                    <button class="btn btn-outline-light btn-sm logo-style" data-style="minimal">Minimal</button>
+                                    <button class="btn btn-outline-light btn-sm logo-style" data-style="modern">Modern</button>
+                                    <button class="btn btn-outline-light btn-sm logo-style" data-style="classic">Classic</button>
+                                    <button class="btn btn-outline-light btn-sm logo-style" data-style="bold">Bold</button>
+                                </div>
+                                
+                                <h5>Icon Library</h5>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <button class="btn btn-outline-light btn-sm icon-btn" data-icon="fas fa-rocket"><i class="fas fa-rocket"></i></button>
+                                    <button class="btn btn-outline-light btn-sm icon-btn" data-icon="fas fa-lightbulb"><i class="fas fa-lightbulb"></i></button>
+                                    <button class="btn btn-outline-light btn-sm icon-btn" data-icon="fas fa-star"><i class="fas fa-star"></i></button>
+                                    <button class="btn btn-outline-light btn-sm icon-btn" data-icon="fas fa-heart"><i class="fas fa-heart"></i></button>
+                                    <button class="btn btn-outline-light btn-sm icon-btn" data-icon="fas fa-leaf"><i class="fas fa-leaf"></i></button>
+                                    <button class="btn btn-outline-light btn-sm icon-btn" data-icon="fas fa-shield"><i class="fas fa-shield"></i></button>
+                                    <button class="btn btn-outline-light btn-sm icon-btn" data-icon="fas fa-bolt"><i class="fas fa-bolt"></i></button>
+                                    <button class="btn btn-outline-light btn-sm icon-btn" data-icon="fas fa-diamond"><i class="fas fa-gem"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Brand Preview -->
+                <section id="preview" class="mb-5">
+                    <div class="glass-card">
+                        <h3 class="mb-4">Brand Preview</h3>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-8">
+                                <div class="brand-preview">
+                                    <div class="d-flex align-items-center mb-4">
+                                        <div id="previewLogo" style="width: 60px; height: 60px; background: var(--primary-blue); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; margin-right: 1rem;">
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div>
+                                            <h3 id="previewCompanyName" class="mb-0">Your Company</h3>
+                                            <p class="text-secondary mb-0">Building the future</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex gap-3 mb-4">
+                                        <button class="btn btn-primary-custom">Get Started</button>
+                                        <button class="btn btn-outline-light">Learn More</button>
+                                    </div>
+                                    
+                                    <div class="d-flex gap-4">
+                                        <div id="previewPrimary" style="width: 40px; height: 40px; background: var(--primary-blue); border-radius: 8px;"></div>
+                                        <div id="previewSecondary" style="width: 40px; height: 40px; background: var(--primary-purple); border-radius: 8px;"></div>
+                                        <div id="previewAccent" style="width: 40px; height: 40px; background: var(--accent-green); border-radius: 8px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <h5 class="mb-3">Social Media Preview</h5>
+                                <div class="social-mockup">
+                                    <div class="social-header">
+                                        <div class="social-avatar" id="socialLogo">
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div>
+                                            <div id="socialCompanyName">Your Company</div>
+                                            <small class="text-muted">@yourcompany</small>
+                                        </div>
+                                    </div>
+                                    <p class="mb-0">Excited to announce our latest innovation! 🚀</p>
+                                </div>
+                                
+                                <div class="mockup-phone">
+                                    <div class="mockup-screen">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div style="width: 30px; height: 30px; background: var(--primary-blue); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; margin-right: 0.5rem;">
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <span id="mobileCompanyName">Company</span>
+                                        </div>
+                                        <div class="mb-2" style="height: 4px; background: var(--primary-blue); border-radius: 2px; width: 80%;"></div>
+                                        <div class="mb-2" style="height: 4px; background: var(--glass-border); border-radius: 2px; width: 60%;"></div>
+                                        <div style="height: 4px; background: var(--glass-border); border-radius: 2px; width: 70%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Export -->
+                <section id="export" class="mb-5">
+                    <div class="glass-card">
+                        <h3 class="mb-4">Export Brand Kit</h3>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <h5>Export Formats</h5>
+                                <div class="export-format" onclick="exportCSS()">
+                                    <i class="fab fa-css3-alt fa-2x text-primary mb-2"></i>
+                                    <h6>CSS Variables</h6>
+                                    <p class="mb-0 text-secondary small">Ready-to-use CSS custom properties</p>
+                                </div>
+                                
+                                <div class="export-format" onclick="exportJSON()">
+                                    <i class="fas fa-code fa-2x text-warning mb-2"></i>
+                                    <h6>JSON Format</h6>
+                                    <p class="mb-0 text-secondary small">Structured data for developers</p>
+                                </div>
+                                
+                                <div class="export-format" onclick="exportPDF()">
+                                    <i class="fas fa-file-pdf fa-2x text-danger mb-2"></i>
+                                    <h6>Brand Guide PDF</h6>
+                                    <p class="mb-0 text-secondary small">Complete brand guidelines document</p>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h5>Logo Downloads</h5>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-light" onclick="downloadLogo('png')">
+                                        <i class="fas fa-image me-2"></i>PNG (Transparent)
+                                    </button>
+                                    <button class="btn btn-outline-light" onclick="downloadLogo('svg')">
+                                        <i class="fas fa-vector-square me-2"></i>SVG (Vector)
+                                    </button>
+                                    <button class="btn btn-outline-light" onclick="downloadLogo('pdf')">
+                                        <i class="fas fa-file-pdf me-2"></i>PDF (Print Ready)
+                                    </button>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <h6>Quick Actions</h6>
+                                    <button class="btn btn-success w-100" onclick="deployToGitHub()">
+                                        <i class="fab fa-github me-2"></i>Deploy to GitHub Pages
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Export Modal -->
+    <div class="modal fade" id="exportModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title">Export Code</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <pre><code id="exportCode" class="text-light"></code></pre>
+                    <button class="btn btn-primary-custom" onclick="copyToClipboard()">
+                        <i class="fas fa-copy me-2"></i>Copy to Clipboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Brand data object
+        let brandData = {
+            companyName: 'Your Company',
+            industry: 'Technology',
+            personality: [],
+            description: '',
+            colors: {
+                primary: '#2563eb',
+                secondary: '#8b5cf6',
+                accent: '#10b981',
+                neutral: '#6b7280'
+            },
+            fonts: {
+                heading: 'Inter',
+                body: 'Inter'
+            },
+            logo: {
+                type: 'text',
+                icon: 'fas fa-star',
+                style: 'minimal'
+            }
+        };
+        
+        // Initialize color pickers
+        let colorPickers = {};
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeColorPickers();
+            bindEventListeners();
+            updatePreview();
+        });
+        
+        function initializeColorPickers() {
+            const colorSwatches = document.querySelectorAll('.color-swatch');
+            
+            colorSwatches.forEach(swatch => {
+                const colorType = swatch.id.replace('Color', '').toLowerCase();
+                
+                colorPickers[colorType] = Pickr.create({
+                    el: swatch,
+                    theme: 'classic',
+                    default: swatch.dataset.color,
+                    components: {
+                        preview: true,
+                        opacity: true,
+                        hue: true,
+                        interaction: {
+                            hex: true,
+                            rgba: true,
+                            hsla: true,
+                            input: true,
+                            clear: true,
+                            save: true
+                        }
+                    }
+                }).on('save', (color) => {
+                    if (color) {
+                        const hexColor = color.toHEXA().toString();
+                        brandData.colors[colorType] = hexColor;
+                        swatch.style.background = hexColor;
+                        updatePreview();
+                    }
+                });
+            });
+        }
+        
+        function bindEventListeners() {
+            // Company name input
+            document.getElementById('companyName').addEventListener('input', function(e) {
+                brandData.companyName = e.target.value || 'Your Company';
+                updatePreview();
+            });
+            
+            // Industry select
+            document.getElementById('industry').addEventListener('change', function(e) {
+                brandData.industry = e.target.value;
+            });
+            
+            // Brand description
+            document.getElementById('brandDescription').addEventListener('input', function(e) {
+                brandData.description = e.target.value;
+            });
+            
+            // Personality tags
+            document.querySelectorAll('.personality-tag').forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const personality = this.dataset.personality;
+                    
+                    if (this.classList.contains('btn-primary')) {
+                        this.classList.remove('btn-primary');
+                        this.classList.add('btn-outline-light');
+                        brandData.personality = brandData.personality.filter(p => p !== personality);
+                    } else {
+                        this.classList.remove('btn-outline-light');
+                        this.classList.add('btn-primary');
+                        brandData.personality.push(personality);
+                    }
+                });
+            });
+            
+            // Font selection
+            document.querySelectorAll('.font-preview').forEach(preview => {
+                preview.addEventListener('click', function() {
+                    const fontName = this.dataset.font;
+                    const isBodyFont = this.classList.contains('body-font');
+                    
+                    // Remove selected class from siblings
+                    const siblings = this.parentNode.querySelectorAll('.font-preview');
+                    siblings.forEach(sibling => sibling.classList.remove('selected'));
+                    
+                    // Add selected class to clicked element
+                    this.classList.add('selected');
+                    
+                    // Update brand data
+                    if (isBodyFont) {
+                        brandData.fonts.body = fontName;
+                    } else {
+                        brandData.fonts.heading = fontName;
+                    }
+                    
+                    updatePreview();
+                });
+            });
+            
+            // Preset palettes
+            document.querySelectorAll('.preset-palette').forEach(preset => {
+                preset.addEventListener('click', function() {
+                    const palette = JSON.parse(this.dataset.palette);
+                    applyColorPalette(palette);
+                });
+            });
+            
+            // Logo style buttons
+            document.querySelectorAll('.logo-style').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.logo-style').forEach(b => b.classList.remove('btn-primary'));
+                    this.classList.add('btn-primary');
+                    brandData.logo.style = this.dataset.style;
+                    updatePreview();
+                });
+            });
+            
+            // Icon buttons
+            document.querySelectorAll('.icon-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    brandData.logo.icon = this.dataset.icon;
+                    updatePreview();
+                });
+            });
+        }
+        
+        function applyColorPalette(palette) {
+            Object.keys(palette).forEach(colorType => {
+                const color = palette[colorType];
+                brandData.colors[colorType] = color;
+                
+                // Update color picker
+                if (colorPickers[colorType]) {
+                    colorPickers[colorType].setColor(color);
+                }
+                
+                // Update swatch
+                const swatch = document.getElementById(colorType + 'Color');
+                if (swatch) {
+                    swatch.style.background = color;
+                }
+            });
+            
+            updatePreview();
+        }
+        
+        function updatePreview() {
+            // Update company name
+            document.getElementById('previewCompanyName').textContent = brandData.companyName;
+            document.getElementById('socialCompanyName').textContent = brandData.companyName;
+            document.getElementById('mobileCompanyName').textContent = brandData.companyName;
+            
+            // Update colors in preview
+            document.getElementById('previewPrimary').style.background = brandData.colors.primary;
+            document.getElementById('previewSecondary').style.background = brandData.colors.secondary;
+            document.getElementById('previewAccent').style.background = brandData.colors.accent;
+            
+            // Update logo in preview
+            const logoElements = ['previewLogo', 'socialLogo'];
+            logoElements.forEach(id => {
+                const element = document.getElementById(id);
+                element.style.background = brandData.colors.primary;
+                element.innerHTML = `<i class="${brandData.logo.icon}"></i>`;
+            });
+            
+            // Update mobile preview
+            const mobileElements = document.querySelectorAll('#mobileCompanyName');
+            mobileElements.forEach(el => {
+                el.style.fontFamily = brandData.fonts.heading;
+            });
+        }
+        
+        function generateTextLogo() {
+            const canvas = document.getElementById('logoCanvas');
+            const logoHtml = `
+                <div style="text-align: center;">
+                    <h1 style="font-family: ${brandData.fonts.heading}; color: ${brandData.colors.primary}; font-size: 3rem; margin: 0;">
+                        ${brandData.companyName}
+                    </h1>
+                </div>
+            `;
+            canvas.innerHTML = logoHtml;
+            brandData.logo.type = 'text';
+        }
+        
+        function generateIconLogo() {
+            const canvas = document.getElementById('logoCanvas');
+            const logoHtml = `
+                <div style="text-align: center;">
+                    <div style="width: 120px; height: 120px; background: ${brandData.colors.primary}; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <i class="${brandData.logo.icon}" style="font-size: 3rem; color: white;"></i>
+                    </div>
+                    <h2 style="font-family: ${brandData.fonts.heading}; color: ${brandData.colors.primary}; margin: 0;">
+                        ${brandData.companyName}
+                    </h2>
+                </div>
+            `;
+            canvas.innerHTML = logoHtml;
+            brandData.logo.type = 'icon';
+        }
+        
+        function generateBrand() {
+            // AI brand generation simulation
+            const aiPersonalities = ['innovative', 'trustworthy', 'bold'];
+            const aiColors = [
+                { primary: '#6366f1', secondary: '#8b5cf6', accent: '#ec4899', neutral: '#6b7280' },
+                { primary: '#059669', secondary: '#06b6d4', accent: '#f59e0b', neutral: '#64748b' },
+                { primary: '#dc2626', secondary: '#ea580c', accent: '#eab308', neutral: '#71717a' }
+            ];
+            
+            // Apply random AI suggestions
+            const randomPalette = aiColors[Math.floor(Math.random() * aiColors.length)];
+            applyColorPalette(randomPalette);
+            
+            // Add personality tags
+            aiPersonalities.forEach(personality => {
+                const tag = document.querySelector(`[data-personality="${personality}"]`);
+                if (tag && !tag.classList.contains('btn-primary')) {
+                    tag.click();
+                }
+            });
+        }
+        
+        function generateAIColors() {
+            const industry = brandData.industry.toLowerCase();
+            const aiColors = {
+                technology: [
+                    { primary: '#2563eb', secondary: '#3b82f6', accent: '#06b6d4' },
+                    { primary: '#7c3aed', secondary: '#8b5cf6', accent: '#a855f7' }
+                ],
+                healthcare: [
+                    { primary: '#059669', secondary: '#10b981', accent: '#34d399' },
+                    { primary: '#0ea5e9', secondary: '#06b6d4', accent: '#22d3ee' }
+                ],
+                finance: [
+                    { primary: '#1e40af', secondary: '#3b82f6', accent: '#60a5fa' },
+                    { primary: '#059669', secondary: '#10b981', accent: '#34d399' }
+                ]
+            };
+            
+            const suggestions = aiColors[industry] || aiColors.technology;
+            const suggestionsContainer = document.getElementById('aiColorSuggestions');
+            
+            suggestionsContainer.innerHTML = '';
+            suggestions.forEach((palette, index) => {
+                const paletteDiv = document.createElement('div');
+                paletteDiv.className = 'd-flex gap-2 mb-2 align-items-center cursor-pointer';
+                paletteDiv.onclick = () => applyColorPalette(palette);
+                
+                paletteDiv.innerHTML = `
+                    <div style="width:20px;height:20px;background:${palette.primary};border-radius:4px;"></div>
+                    <div style="width:20px;height:20px;background:${palette.secondary};border-radius:4px;"></div>
+                    <div style="width:20px;height:20px;background:${palette.accent};border-radius:4px;"></div>
+                    <span class="ms-2">AI Suggestion ${index + 1}</span>
+                `;
+                
+                suggestionsContainer.appendChild(paletteDiv);
+            });
+        }
+        
+        function exportCSS() {
+            const css = `
+:root {
+    --brand-primary: ${brandData.colors.primary};
+    --brand-secondary: ${brandData.colors.secondary};
+    --brand-accent: ${brandData.colors.accent};
+    --brand-neutral: ${brandData.colors.neutral};
+    --brand-font-heading: '${brandData.fonts.heading}', sans-serif;
+    --brand-font-body: '${brandData.fonts.body}', sans-serif;
+}
+
+.brand-primary { color: var(--brand-primary); }
+.brand-bg-primary { background-color: var(--brand-primary); }
+.brand-heading { font-family: var(--brand-font-heading); }
+.brand-body { font-family: var(--brand-font-body); }
+            `;
+            
+            showExportModal(css);
+        }
+        
+        function exportJSON() {
+            const json = JSON.stringify(brandData, null, 2);
+            showExportModal(json);
+        }
+        
+        function showExportModal(content) {
+            document.getElementById('exportCode').textContent = content;
+            const modal = new bootstrap.Modal(document.getElementById('exportModal'));
+            modal.show();
+        }
+        
+        function copyToClipboard() {
+            const code = document.getElementById('exportCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+        
+        function deployToGitHub() {
+            // GitHub Pages deployment simulation
+            alert('This would integrate with GitHub API to deploy your branded site to GitHub Pages automatically!');
+        }
+        
+        function downloadLogo(format) {
+            // Logo download simulation
+            alert(`This would generate and download your logo in ${format.toUpperCase()} format!`);
+        }
+        
+        function exportPDF() {
+            // PDF export simulation
+            alert('This would generate a complete brand guidelines PDF with all your brand assets!');
+        }
+    </script>
+</body>
+</html>
