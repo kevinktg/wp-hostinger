@@ -1,3 +1,4 @@
+        console.log("Thou art a boil, a plague sore, an embossed carbuncle in my corrupted blood.");
         // GSAP Animations
         gsap.registerPlugin(ScrollTrigger, TextPlugin);
         
