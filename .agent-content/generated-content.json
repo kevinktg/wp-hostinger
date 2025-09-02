@@ -1,0 +1,28 @@
+{
+  "title": "AI-Powered Digital Agency | Next-Gen Solutions",
+  "hero": {
+    "headline": "Transforming Ideas into Digital Reality with AI",
+    "subheadline": "We blend cutting-edge AI with human creativity to deliver exceptional digital experiences.",
+    "cta": "Start Your AI Journey"
+  },
+  "sections": [
+    {
+      "type": "services",
+      "title": "AI-Powered Services",
+      "items": [
+        "AI Strategy Consulting",
+        "Machine Learning Integration",
+        "Intelligent Automation"
+      ]
+    },
+    {
+      "type": "case-studies",
+      "title": "Success Stories",
+      "items": [
+        "Tech Startup Growth by 300%",
+        "E-commerce Conversion +150%",
+        "Content Creation 10x Faster"
+      ]
+    }
+  ]
+}
