@@ -1,0 +1,43 @@
+{
+  "version": "1.6.1",
+  "system_config": {
+    "cpu_cores": 6,
+    "ram_gb": 32,
+    "gpu_vram_gb": 12,
+    "platform": "windows",
+    "optimal_threads": 8,
+    "max_concurrent_agents": 4
+  },
+  "flow_settings": {
+    "mode": "development",
+    "auto_save": true,
+    "real_time_monitoring": true,
+    "webhook_enabled": true,
+    "dashboard_sync": true,
+    "permission_mode": "default"
+  },
+  "integrations": {
+    "claude_code": {
+      "enabled": true,
+      "mcp_server": true,
+      "git_integration": true,
+      "file_watch": true
+    },
+    "crush_cli": {
+      "enabled": true,
+      "version": "0.7.4",
+      "terminal_ui": true
+    },
+    "github_pages": {
+      "auto_deploy": true,
+      "build_on_push": true,
+      "preview_enabled": true
+    }
+  },
+  "agent_coordination": {
+    "multi_agent_mode": true,
+    "context_sharing": true,
+    "task_distribution": "balanced",
+    "conflict_resolution": "human_approval"
+  }
+}

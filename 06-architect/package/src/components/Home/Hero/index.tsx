@@ -1,12 +1,17 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { useScrollTrigger, useParallaxScroll } from '@/hooks/useScrollTrigger'
 
 const Hero: React.FC = () => {
+  const heroRef = useScrollTrigger()
+  const parallaxRef = useParallaxScroll(0.3)
   return (
     <section className='!py-0'>
       <div className='bg-gradient-to-b from-skyblue via-lightskyblue dark:via-[#4298b0] to-white/10 dark:to-black/10 overflow-hidden relative'>
         <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-32 md:pt-60 md:pb-68'>
-          <div className='relative text-white dark:text-dark text-center md:text-start z-10'>
+          <div ref={heroRef} className='relative text-white dark:text-dark text-center md:text-start z-10'>
             <p className='text-inherit text-xm font-medium'>Palm springs, CA</p>
             <h1 className='text-inherit text-6xl sm:text-9xl font-semibold -tracking-wider md:max-w-45p mt-4 mb-6'>
               Futuristic Haven
@@ -20,7 +25,7 @@ const Hero: React.FC = () => {
               </button>
             </div>
           </div>
-          <div className='hidden md:block absolute -top-2 -right-68'>
+          <div ref={parallaxRef} className='hidden md:block absolute -top-2 -right-68'>
             <Image
               src={'/images/hero/heroBanner.png'}
               alt='heroImg'

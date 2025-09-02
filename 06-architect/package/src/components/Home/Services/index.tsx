@@ -1,8 +1,13 @@
+'use client'
+
 import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
+import { useScrollTrigger, useStaggerAnimation } from '@/hooks/useScrollTrigger'
 
 const Categories = () => {
+  const titleRef = useScrollTrigger()
+  const staggerRef = useStaggerAnimation(0.3)
   return (
     <section className="relative overflow-hidden">
       <div className="absolute left-0 top-0">
@@ -24,8 +29,8 @@ const Categories = () => {
         />
       </div>
       <div className="container max-w-8xl mx-auto px-5 2xl:px-0 relative z-10">
-        <div className="grid grid-cols-12 items-center gap-10">
-          <div className="lg:col-span-6 col-span-12">
+        <div ref={staggerRef} className="grid grid-cols-12 items-center gap-10">
+          <div ref={titleRef} className="lg:col-span-6 col-span-12">
             <p className="text-dark/75 dark:text-white/75 text-base font-semibold flex gap-2.5">
               <Icon icon="ph:house-simple-fill" className="text-2xl text-primary " />
               Categories

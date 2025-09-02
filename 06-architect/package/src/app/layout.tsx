@@ -6,6 +6,7 @@ import Footer from '@/components/Layout/Footer'
 import { ThemeProvider } from 'next-themes'
 import NextTopLoader from 'nextjs-toploader';
 import SessionProviderComp from '@/components/nextauth/SessionProvider'
+import ScrollTriggerProvider from '@/components/ScrollTriggerProvider'
 
 const font = Bricolage_Grotesque({ subsets: ["latin"] });
 
@@ -30,9 +31,11 @@ export default function RootLayout({
             attribute='class'
             enableSystem={true}
             defaultTheme='light'>
-            <Header />
-            {children}
-            <Footer />
+            <ScrollTriggerProvider>
+              <Header />
+              {children}
+              <Footer />
+            </ScrollTriggerProvider>
           </ThemeProvider>
         </SessionProviderComp>
       </body>
