@@ -1,4 +1,5 @@
 @echo off
+echo ⚠️  DEPLOYMENT SCRIPT DISABLED TO PREVENT AUTOMATED RUNS
 echo 🚀 Starting 2025 Bootstrap Sites Deployment
 echo ==========================================
 

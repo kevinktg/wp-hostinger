@@ -1,7 +1,8 @@
 #!/bin/bash
-# In the grand tapestry of the cosmos, this script is but a single thread,
+# DISABLED FOR CI BREAK - In the grand tapestry of the cosmos, this script is but a single thread,
 # weaving the fabric of our SaaS landing page's destiny.
 
+echo "⚠️  DEPLOYMENT SCRIPT DISABLED TO PREVENT AUTOMATED RUNS"
 echo "🚀 Commencing the celestial deployment of the SaaS Landing Page"
 echo "==============================================================="
 
