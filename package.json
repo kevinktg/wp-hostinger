@@ -5,10 +5,12 @@
   "main": "scripts/build-site.js",
   "type": "module",
   "scripts": {
-    "dev": "python3 -m http.server 3000",
+    "dev": "node scripts/build-site.js --template=01-ai-portfolio-agency && python3 -m http.server --directory generated-site 3000 | cat",
     "build": "node scripts/build-site.js --template=01-ai-portfolio-agency",
     "generate": "node agent-automation/generate-content.js",
     "deploy": "bash deploy.sh",
+    "architect:dev": "npm --prefix 06-architect/package run dev",
+    "architect:start": "npm --prefix 06-architect/package run start",
     "lint": "echo '🏆 All templates look amazing!'",
     "test": "echo '✅ Templates ready for 2025!'"
   },

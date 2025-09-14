@@ -4,15 +4,15 @@ echo "🚀 Starting 2025 Bootstrap Sites Deployment"
 echo "=========================================="
 
 # Get user input
-read -p "Enter your GitHub username: " GITHUB_USER
-read -p "Enter repository name: " REPO_NAME
-read -p "Select template (1-5): 
-1. AI Portfolio Agency
-2. SaaS Landing
-3. Startup Launch
-4. Nonprofit Cause
-5. E-commerce Marketplace
-> " TEMPLATE_NUM
+GITHUB_USER=${GITHUB_USER:-"$1"}
+REPO_NAME=${REPO_NAME:-"$2"}
+TEMPLATE_NUM=${TEMPLATE_NUM:-"$3"}
+
+if [ -z "$GITHUB_USER" ] || [ -z "$REPO_NAME" ] || [ -z "$TEMPLATE_NUM" ]; then
+  echo "Usage: GITHUB_USER=<user> REPO_NAME=<repo> TEMPLATE_NUM=1 bash deploy.sh"
+  echo "Or: bash deploy.sh <user> <repo> <template_num>"
+  exit 1
+fi
 
 # Map template numbers to directories
 case $TEMPLATE_NUM in
@@ -24,23 +24,39 @@ case $TEMPLATE_NUM in
   *) echo "❌ Invalid template number!"; exit 1 ;;
 esac
 
-echo "📦 Deploying $TEMPLATE_DIR to https://$GITHUB_USER.github.io/$REPO_NAME/"
+echo "📦 Building $TEMPLATE_DIR to generated-site and deploying to https://$GITHUB_USER.github.io/$REPO_NAME/"
 
-# Initialize git repository if needed
-if [ ! -d ".git" ]; then
-  git init
-  git branch -m main
+# Build selected template into generated-site
+node scripts/build-site.js --template=$TEMPLATE_DIR || { echo "❌ Build failed"; exit 1; }
+
+# Prepare a temporary publish directory
+PUBLISH_DIR=$(mktemp -d)
+cp -r generated-site/* "$PUBLISH_DIR/" 2>/dev/null || true
+
+# Create a .nojekyll to avoid Jekyll processing issues
+touch "$PUBLISH_DIR/.nojekyll"
+
+# Initialize a throwaway repo for the pages deploy if needed
+pushd "$PUBLISH_DIR" >/dev/null
+git init >/dev/null
+git add .
+git commit -m "Deploy $TEMPLATE_DIR" >/dev/null || true
+popd >/dev/null
+
+# Create the GitHub repository if it doesn't exist and set origin
+if ! gh repo view $GITHUB_USER/$REPO_NAME >/dev/null 2>&1; then
+  echo "🔗 Creating GitHub repository..."
+  gh repo create $REPO_NAME --public --source=. --remote=origin --push || true
 fi
 
-# Create GitHub repository (requires authentication)
-echo "🔗 Creating GitHub repository..."
-gh repo create $REPO_NAME --public --source=. --remote=origin --push
-
-# Enable GitHub Pages
-gh pages deploy --branch=main
+echo "🛰️ Deploying static site to GitHub Pages..."
+gh pages deploy --repo "$GITHUB_USER/$REPO_NAME" --branch gh-pages --dist "$PUBLISH_DIR" --message "Deploy $TEMPLATE_DIR" || {
+  echo "❌ gh pages deploy failed. Ensure GitHub CLI is authenticated."
+  exit 1
+}
 
 echo "✅ Deployment complete!"
-echo "🌐 Your site will be available at: https://$GITHUB_USER.github.io/$REPO_NAME/"
+echo "🌐 Your site is available at: https://$GITHUB_USER.github.io/$REPO_NAME/"
 echo ""
 echo "💡 Tips:"
 echo "  - Custom domain: Configure in repository settings"
