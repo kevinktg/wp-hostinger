@@ -7,6 +7,14 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const demoOrder = [
+  '01-ai-portfolio-agency',
+  '02-saas-landing',
+  '03-startup-launch',
+  '04-nonprofit-cause',
+  '05-ecommerce-marketplace'
+];
+
 class SiteBuilder {
   constructor() {
     this.templatesDir = path.join(__dirname, '..');
@@ -26,13 +34,13 @@ class SiteBuilder {
     const content = JSON.parse(fs.readFileSync(contentPath, 'utf8'));
 
     // Copy template files
-    await this.copyTemplate(templatePath, outputPath, content);
+    await this.copyTemplate(templatePath, outputPath, content, templateName);
     
     console.log(`✅ Site built successfully for ${templateName}`);
     return outputPath;
   }
 
-  async copyTemplate(src, dest, content) {
+  async copyTemplate(src, dest, content, templateName) {
     const files = fs.readdirSync(src);
     
     for (const file of files) {
@@ -44,12 +52,14 @@ class SiteBuilder {
         if (!fs.existsSync(destPath)) {
           fs.mkdirSync(destPath, { recursive: true });
         }
-        await this.copyTemplate(srcPath, destPath, content);
+        await this.copyTemplate(srcPath, destPath, content, templateName);
       } else if (file.endsWith('.html')) {
         let fileContent = fs.readFileSync(srcPath, 'utf8');
         
         // Replace placeholders with content from JSON
-        fileContent = this.transformContent(fileContent, content);
+        fileContent = this.transformContent(fileContent, content, templateName);
+        // Inject next-demo navigation when applicable
+        fileContent = this.injectNextDemoNav(fileContent, templateName);
         
         fs.writeFileSync(destPath, fileContent);
       } else {
@@ -58,9 +68,9 @@ class SiteBuilder {
     }
   }
 
-  transformContent(htmlContent, data) {
+  transformContent(htmlContent, data, _templateName) {
     // Replace simple placeholders like {{title}}
-    let newContent = htmlContent.replace(/\{\{([^}]+)\}\} /g, (match, placeholder) => {
+    let newContent = htmlContent.replace(/\{\{([^}]+)\}\}/g, (match, placeholder) => {
       const keys = placeholder.split('.');
       let value = data;
       for (const key of keys) {
@@ -70,6 +80,22 @@ class SiteBuilder {
     });
 
     return newContent;
+  }
+
+  injectNextDemoNav(htmlContent, templateName) {
+    try {
+      const currentIndex = demoOrder.indexOf(templateName);
+      if (currentIndex === -1) return htmlContent;
+      const nextTemplate = demoOrder[(currentIndex + 1) % demoOrder.length];
+      const href = `../${nextTemplate}/`;
+      const snippet = `\n<!-- next-demo button injected -->\n<style>\n  .next-demo-btn{position:fixed;right:16px;bottom:16px;background:#1f6feb;color:#fff;font-weight:600;border-radius:999px;padding:10px 14px;text-decoration:none;box-shadow:0 6px 18px rgba(31,110,235,.35);z-index:9999;border:1px solid rgba(255,255,255,.15)}\n  .next-demo-btn:hover{background:#1a5ac3}\n</style>\n<a class=\"next-demo-btn\" href=\"${href}\" aria-label=\"Next demo\">Next ▶</a>\n`;
+      if (htmlContent.includes('</body>')) {
+        return htmlContent.replace('</body>', `${snippet}</body>`);
+      }
+      return htmlContent + snippet;
+    } catch {
+      return htmlContent;
+    }
   }
 }
 
