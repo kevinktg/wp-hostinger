@@ -32,17 +32,23 @@ jobs:
       - name: Generate static sites
         run: |
           echo "Building sites..."
-          # Build at least the default example to ensure output exists
-          if [ -d .agent-content ]; then
-            # Build all templates that have corresponding content JSON
+          # Build from content files when present
+          if ls .agent-content/*-content.json >/dev/null 2>&1; then
             for content in .agent-content/*-content.json; do
               name=$(basename "$content" -content.json)
               echo "Building $name from $content"
               node scripts/build-site.js --template="$name" --content="$content" || true
             done
-          else
-            echo ".agent-content not found; skipping content-driven builds"
           fi
+
+          # Also build any template directories that contain an index.html
+          for dir in 01-* 02-* 03-* 04-* 05-* flowai-saas nexus-ai-agency impact-nonprofit launchpad-startup luxe-ecommerce generated-site; do
+            if [ -d "$dir" ] && [ -f "$dir/index.html" ]; then
+              name=$(basename "$dir")
+              echo "Building fallback for $name (no content JSON)"
+              node scripts/build-site.js --template="$name" || true
+            fi
+          done
           # Ensure generated-site exists
           mkdir -p generated-site
 

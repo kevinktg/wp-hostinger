@@ -30,8 +30,21 @@ class SiteBuilder {
       fs.mkdirSync(outputPath, { recursive: true });
     }
 
-    // Read content file
-    const content = JSON.parse(fs.readFileSync(contentPath, 'utf8'));
+    // Read content file (optional)
+    let content = {};
+    try {
+      if (contentPath && fs.existsSync(contentPath)) {
+        content = JSON.parse(fs.readFileSync(contentPath, 'utf8'));
+      } else {
+        const inferred = path.join(this.templatesDir, '..', '.agent-content', `${templateName}-content.json`);
+        if (fs.existsSync(inferred)) {
+          content = JSON.parse(fs.readFileSync(inferred, 'utf8'));
+        }
+      }
+    } catch (e) {
+      console.warn(`⚠️  Failed to read/parse content for ${templateName}. Proceeding with empty content.`, e?.message || e);
+      content = {};
+    }
 
     // Copy template files
     await this.copyTemplate(templatePath, outputPath, content, templateName);
@@ -70,7 +83,7 @@ class SiteBuilder {
 
   transformContent(htmlContent, data, _templateName) {
     // Replace simple placeholders like {{title}}
-    let newContent = htmlContent.replace(/\{\{([^}]+)\}\}/g, (match, placeholder) => {
+    let newContent = htmlContent.replace(/\{\{\s*([^}]+)\s*\}\}/g, (match, placeholder) => {
       const keys = placeholder.split('.');
       let value = data;
       for (const key of keys) {
@@ -105,13 +118,13 @@ async function main() {
   const templateArg = args.find(arg => arg.startsWith('--template='));
   const contentArg = args.find(arg => arg.startsWith('--content='));
   
-  if (!templateArg || !contentArg) {
-    console.error('❌ Please specify template and content with --template=name and --content=path/to/content.json');
+  if (!templateArg) {
+    console.error('❌ Please specify a template with --template=name');
     process.exit(1);
   }
   
   const templateName = templateArg.split('=')[1];
-  const contentPath = path.resolve(contentArg.split('=')[1]);
+  const contentPath = contentArg ? path.resolve(contentArg.split('=')[1]) : undefined;
   
   const builder = new SiteBuilder();
   await builder.build(templateName, contentPath);
