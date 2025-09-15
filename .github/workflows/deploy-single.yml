@@ -1,0 +1,69 @@
+name: Deploy Single Site to GitHub Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      template:
+        description: "Template folder name (e.g., 01-ai-portfolio-agency)"
+        required: true
+        type: string
+      content_json:
+        description: "Optional content JSON path (defaults to .agent-content/<template>-content.json)"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-single
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Build selected site
+        run: |
+          template="${{ inputs.template }}"
+          if [ -z "$template" ]; then
+            echo "Template input is required" && exit 1
+          fi
+          content_input="${{ inputs.content_json }}"
+          if [ -z "$content_input" ]; then
+            content_input=".agent-content/${template}-content.json"
+          fi
+          echo "Building $template with content $content_input"
+          mkdir -p generated-site
+          node scripts/build-site.js --template="$template" --content="$content_input"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: generated-site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+
