@@ -51,13 +51,13 @@ jobs:
           set -e
           out="generated-site/index.html"
           echo "Generating landing page at $out"
-          cat > "$out" <<'HTML'
+          cat > "$out" <<'HTML_HEADER'
           <!doctype html>
           <html lang="en">
           <head>
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>WP Hostinger — Demos</title>
+            <title>Battle of the Bots — Series</title>
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -70,6 +70,7 @@ jobs:
               .card{background:#121923;border:1px solid #1f2a37;border-radius:12px;padding:16px;transition:transform .1s ease, border-color .1s ease}
               .card:hover{transform:translateY(-2px);border-color:#2b3a4a}
               .name{font-weight:600;margin:0 0 8px}
+              .desc{margin:0 0 12px;color:#9fb1c1;font-size:14px}
               .actions{display:flex;gap:10px}
               .btn{display:inline-block;background:#1f6feb;color:#fff;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
               .btn.secondary{background:#2b3a4a}
@@ -78,40 +79,34 @@ jobs:
           </head>
           <body>
             <header>
-              <h1>WP Hostinger — Live Demos</h1>
-              <p class="lead">Browse all available templates. Each opens in a subpath.</p>
+              <h1>Battle of the Bots — Series</h1>
+              <p class="lead">Five CLI agents, 30 minutes each, building sites “backwards”. Browse the demos below.</p>
             </header>
-            <div class="grid" id="cards"></div>
+            <div class="grid">
+          HTML_HEADER
+
+          # Append one card per built subdirectory of generated-site
+          for d in generated-site/*/ ; do
+            name=$(basename "$d")
+            if [ "$name" = "assets" ] || [ "$name" = "_next" ]; then continue; fi
+            cat >> "$out" <<HTML_CARD
+              <div class="card">
+                <h3 class="name">$name</h3>
+                <p class="desc">Live demo built by an agent during the challenge.</p>
+                <div class="actions">
+                  <a class="btn" href="./$name/" target="_blank" rel="noopener">View Demo</a>
+                </div>
+              </div>
+          HTML_CARD
+          done
+
+          # Close the document
+          cat >> "$out" <<'HTML_FOOTER'
+            </div>
             <footer>Deployed via GitHub Pages</footer>
-            <script>
-              async function load() {
-                const res = await fetch('./');
-                const text = await res.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(text, 'text/html');
-                const links = Array.from(doc.querySelectorAll('a'))
-                  .map(a => a.getAttribute('href'))
-                  .filter(href => href && href.endsWith('/') && href !== '../' && href !== './');
-                const unique = Array.from(new Set(links));
-                const container = document.getElementById('cards');
-                unique.forEach(href => {
-                  const name = href.replace(/\/$/, '');
-                  const card = document.createElement('div');
-                  card.className = 'card';
-                  card.innerHTML = `
-                    <h3 class="name">${name}</h3>
-                    <div class="actions">
-                      <a class="btn" href="${href}" target="_blank" rel="noopener">View Demo</a>
-                    </div>
-                  `;
-                  container.appendChild(card);
-                });
-              }
-              load();
-            </script>
           </body>
           </html>
-          HTML
+          HTML_FOOTER
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
