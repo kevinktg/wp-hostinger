@@ -1631,26 +1631,16 @@
                     <!-- Pagination -->
                     <nav class="mt-5">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#"><i class="fas fa-chevron-left"></i></a>
+                            <li class="page-item" id="gridPrev">
+                                <a class="page-link" href="#" aria-label="Previous"><i class="fas fa-chevron-left"></i></a>
                             </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <span class="page-link">...</span>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">20</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                            <li class="page-item active"><a class="page-link" href="#" data-page="1">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#" data-page="2">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#" data-page="3">3</a></li>
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <li class="page-item"><a class="page-link" href="#" data-page="20">20</a></li>
+                            <li class="page-item" id="gridNext">
+                                <a class="page-link" href="#" aria-label="Next"><i class="fas fa-chevron-right"></i></a>
                             </li>
                         </ul>
                     </nav>
@@ -2057,6 +2047,84 @@
                 document.querySelector('.search-btn').click();
             }
         });
+
+        // Product grid pagination (client-side)
+        (function initGridPagination() {
+            const gridContainer = document.querySelector('.col-lg-9 .row');
+            if (!gridContainer) return;
+            const productCards = Array.from(gridContainer.querySelectorAll('.col-lg-4.col-md-6.mb-4'));
+            if (productCards.length === 0) return;
+
+            const itemsPerPage = 6;
+            let currentPage = 1;
+
+            const pagination = document.querySelector('nav .pagination');
+            const prevBtn = document.getElementById('gridPrev');
+            const nextBtn = document.getElementById('gridNext');
+
+            const totalPages = Math.max(1, Math.ceil(productCards.length / itemsPerPage));
+
+            // Hide page number links that exceed total pages and handle ellipsis visibility
+            const pageNumberLinks = Array.from(pagination.querySelectorAll('a.page-link[data-page]'));
+            pageNumberLinks.forEach(link => {
+                const pageNum = parseInt(link.getAttribute('data-page'), 10);
+                if (!Number.isNaN(pageNum)) {
+                    link.parentElement.style.display = pageNum <= totalPages ? '' : 'none';
+                }
+            });
+            const ellipsisItem = pagination.querySelector('.page-item.disabled');
+            if (ellipsisItem) {
+                ellipsisItem.style.display = totalPages <= 3 ? 'none' : '';
+            }
+
+            function renderPage(page) {
+                currentPage = Math.min(Math.max(1, page), totalPages);
+                const start = (currentPage - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+
+                productCards.forEach((card, index) => {
+                    card.style.display = (index >= start && index < end) ? '' : 'none';
+                });
+
+                // Update pager active state
+                pagination.querySelectorAll('.page-item').forEach(li => li.classList.remove('active', 'disabled'));
+                // Re-disable ellipsis
+                pagination.querySelectorAll('.page-item span.page-link').forEach(span => span.parentElement.classList.add('disabled'));
+
+                // Activate matching page link if present
+                const activeLink = pagination.querySelector(`a.page-link[data-page="${currentPage}"]`);
+                if (activeLink) activeLink.parentElement.classList.add('active');
+
+                // Prev/next disabled states
+                if (currentPage === 1) prevBtn.classList.add('disabled');
+                if (currentPage === totalPages) nextBtn.classList.add('disabled');
+            }
+
+            // Click handlers
+            pagination.addEventListener('click', (e) => {
+                const target = e.target.closest('a.page-link');
+                if (!target) return;
+                e.preventDefault();
+
+                if (target.parentElement.id === 'gridPrev') {
+                    renderPage(currentPage - 1);
+                    return;
+                }
+                if (target.parentElement.id === 'gridNext') {
+                    renderPage(currentPage + 1);
+                    return;
+                }
+
+                const pageAttr = target.getAttribute('data-page');
+                if (pageAttr) {
+                    const pageNum = parseInt(pageAttr, 10);
+                    if (!Number.isNaN(pageNum)) renderPage(pageNum);
+                }
+            });
+
+            // Initial render
+            renderPage(1);
+        })();
     </script>
 </body>
 </html>
