@@ -34,22 +34,15 @@ const PropertyCard: React.FC<{ item: PropertyHomes }> = ({ item }) => {
           </div>
         </div>
         <div className='p-6'>
-          <div className='flex flex-col mobile:flex-row gap-5 mobile:gap-0 justify-between mb-6'>
-            <div>
-              <Link href={`/properties/${slug}`}>
-                <h3 className='text-xl font-medium text-black dark:text-white duration-300 group-hover:text-primary'>
-                  {name}
-                </h3>
-              </Link>
-              <p className='text-base font-normal text-black/50 dark:text-white/50'>
-                {location}
-              </p>
-            </div>
-            <div>
-              <button className='text-base font-normal text-primary px-5 py-2 rounded-full bg-primary/10'>
-                ${rate}
-              </button>
-            </div>
+          <div className='mb-6'>
+            <Link href={`/properties/${slug}`}>
+              <h3 className='text-xl font-medium text-black dark:text-white duration-300 group-hover:text-primary'>
+                {name}
+              </h3>
+            </Link>
+            <p className='text-base font-normal text-black/50 dark:text-white/50'>
+              {location}
+            </p>
           </div>
           <div className='flex'>
             <div className='flex flex-col gap-2 border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8'>

@@ -13,26 +13,26 @@ class SiteBuilder {
     this.generatedDir = path.join(__dirname, '..', 'generated-site');
   }
 
-  async build(templateName, config) {
+  async build(templateName, contentPath) {
     const templatePath = path.join(this.templatesDir, templateName);
-    const outputPath = this.generatedDir;
+    const outputPath = path.join(this.generatedDir, templateName);
 
     // Ensure output directory exists
     if (!fs.existsSync(outputPath)) {
       fs.mkdirSync(outputPath, { recursive: true });
     }
 
+    // Read content file
+    const content = JSON.parse(fs.readFileSync(contentPath, 'utf8'));
+
     // Copy template files
-    await this.copyTemplate(templatePath, outputPath);
-    
-    // Apply customizations from agent
-    await this.applyCustomizations(outputPath, config);
+    await this.copyTemplate(templatePath, outputPath, content);
     
     console.log(`✅ Site built successfully for ${templateName}`);
     return outputPath;
   }
 
-  async copyTemplate(src, dest) {
+  async copyTemplate(src, dest, content) {
     const files = fs.readdirSync(src);
     
     for (const file of files) {
@@ -44,35 +44,32 @@ class SiteBuilder {
         if (!fs.existsSync(destPath)) {
           fs.mkdirSync(destPath, { recursive: true });
         }
-        await this.copyTemplate(srcPath, destPath);
+        await this.copyTemplate(srcPath, destPath, content);
       } else if (file.endsWith('.html')) {
-        let content = fs.readFileSync(srcPath, 'utf8');
+        let fileContent = fs.readFileSync(srcPath, 'utf8');
         
-        // Replace placeholders with agent-generated content
-        content = this.transformContent(content);
+        // Replace placeholders with content from JSON
+        fileContent = this.transformContent(fileContent, content);
         
-        fs.writeFileSync(destPath, content);
+        fs.writeFileSync(destPath, fileContent);
       } else {
         fs.copyFileSync(srcPath, destPath);
       }
     }
   }
 
-  transformContent(content) {
-    // Replace template placeholders with actual content
-    content = content.replace(/\{\{CONTENT\}\}/g, 'Custom Generated Content');
-    content = content.replace(/\{\{TITLE\}\}/g, 'AI-Generated Site');
-    content = content.replace(/\{\{DESCRIPTION\}\}/g, 'Powered by Agent Automation');
-    
-    return content;
-  }
+  transformContent(htmlContent, data) {
+    // Replace simple placeholders like {{title}}
+    let newContent = htmlContent.replace(/\{\{([^}]+)\}\} /g, (match, placeholder) => {
+      const keys = placeholder.split('.');
+      let value = data;
+      for (const key of keys) {
+        value = value ? value[key] : undefined;
+      }
+      return value !== undefined ? value : match;
+    });
 
-  async applyCustomizations(outputPath, config) {
-    // Apply any custom configurations from the agent
-    if (config && config.customStyles) {
-      const stylePath = path.join(outputPath, 'custom-styles.css');
-      fs.writeFileSync(stylePath, config.customStyles);
-    }
+    return newContent;
   }
 }
 
@@ -80,16 +77,18 @@ class SiteBuilder {
 async function main() {
   const args = process.argv.slice(2);
   const templateArg = args.find(arg => arg.startsWith('--template='));
+  const contentArg = args.find(arg => arg.startsWith('--content='));
   
-  if (!templateArg) {
-    console.error('❌ Please specify template with --template=name');
+  if (!templateArg || !contentArg) {
+    console.error('❌ Please specify template and content with --template=name and --content=path/to/content.json');
     process.exit(1);
   }
   
   const templateName = templateArg.split('=')[1];
+  const contentPath = path.resolve(contentArg.split('=')[1]);
   
   const builder = new SiteBuilder();
-  await builder.build(templateName, {});
+  await builder.build(templateName, contentPath);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

@@ -4,11 +4,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Gradient colors */
-  --color-primary: #07be8a;
-  --color-skyblue: #79adff;
-  --color-lightskyblue: #9cc2dd;
-  --color-dark: #172023;
+  /* Brand colors */
+  --color-primary: #bfa77a;
+  --color-gold: #bfa77a;
+  --color-light: #ececec;
+  --color-dark: #000000;
+  --color-accent: #2b061e;
+  --color-night: #000000;
+  --color-star: #ffffff;
 
   /* Shadow */
   --shadow-3xl: 0px 4px 6px -2px #0000000D, 0px 10px 15px -3px #0000001A;
@@ -39,8 +42,13 @@
   --spacing-8xl: 87.5rem;
   /* 1400px */
 
+  /* fonts */
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-inter);
+
   /* animation */
   --animate-slide: slide 20s linear infinite;
+  --animate-twinkle: twinkle 3s ease-in-out infinite alternate;
 
   @keyframes slide {
     0% {
@@ -49,6 +57,17 @@
 
     100% {
       transform: translateX(-103%);
+    }
+  }
+
+  @keyframes twinkle {
+    0% {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1.2);
     }
   }
 }
@@ -120,4 +139,52 @@ section {
 
 .blog-details p {
   @apply text-dark dark:text-white text-xm leading-[1.2]
+}
+/* Sta
+rry Night Background */
+.starry-night {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.starry-night::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2px 2px at 160px 30px, #ffffff, transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: var(--animate-twinkle);
+  pointer-events: none;
+}
+
+/* Typography Classes */
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Brand Color Classes */
+.text-gold {
+  color: var(--color-gold);
+}
+
+.bg-gold {
+  background-color: var(--color-gold);
+}
+
+.border-gold {
+  border-color: var(--color-gold);
 }

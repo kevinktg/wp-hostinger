@@ -11,16 +11,16 @@ export const propertyHomes: PropertyHomes[] = [
     area: 120,
     images: [
       {
-        src: "/images/properties/property1/property1.jpg",
+        src: "/images/featuredproperty/hero/hero_00.jpg",
       },
       {
-        src: "/images/properties/property1/image-2.jpg"
+        src: "/images/featuredproperty/hero/hero_01.jpg"
       },
       {
-        src: "/images/properties/property1/image-3.jpg"
+        src: "/images/featuredproperty/hero/hero_02.jpg"
       },
       {
-        src: "/images/properties/property1/image-4.jpg"
+        src: "/images/featuredproperty/hero/hero_03.jpg"
       },
     ]
   },
@@ -34,16 +34,16 @@ export const propertyHomes: PropertyHomes[] = [
     area: 150,
     images: [
       {
-        src: "/images/properties/property2/property2.jpg",
+        src: "/images/featuredproperty/designs/design_0.jpg",
       },
       {
-        src: "/images/properties/property2/image-2.jpg"
+        src: "/images/featuredproperty/designs/design_1.jpg"
       },
       {
-        src: "/images/properties/property2/image-3.jpg"
+        src: "/images/featuredproperty/designs/design_2.jpg"
       },
       {
-        src: "/images/properties/property2/image-4.jpg"
+        src: "/images/featuredproperty/living_room/living_room_01.jpg"
       },
     ]
   },
@@ -57,16 +57,16 @@ export const propertyHomes: PropertyHomes[] = [
     area: 180,
     images: [
       {
-        src: "/images/properties/property3/property3.jpg",
+        src: "/images/featuredproperty/designs/design_3.jpg",
       },
       {
-        src: "/images/properties/property3/image-2.jpg"
+        src: "/images/featuredproperty/designs/design_4.jpg"
       },
       {
-        src: "/images/properties/property3/image-3.jpg"
+        src: "/images/featuredproperty/designs/design_5.jpg"
       },
       {
-        src: "/images/properties/property3/image-4.jpg"
+        src: "/images/featuredproperty/general/property_image_4.jpg"
       },
     ]
   },
@@ -80,22 +80,22 @@ export const propertyHomes: PropertyHomes[] = [
     area: 200,
     images: [
       {
-        src: "/images/properties/property4/property4.jpg",
+        src: "/images/featuredproperty/designs/design_6.jpg",
       },
       {
-        src: "/images/properties/property4/image-2.jpg"
+        src: "/images/featuredproperty/designs/design_7.jpg"
       },
       {
-        src: "/images/properties/property4/image-3.jpg"
+        src: "/images/featuredproperty/designs/design_8.jpg"
       },
       {
-        src: "/images/properties/property4/image-4.jpg"
+        src: "/images/featuredproperty/general/property_image_5.jpg"
       },
     ]
   },
   {
     name: 'Grand vista villas',
-    slug: 'grand-cista-villas',
+    slug: 'grand-vista-villas',
     location: '25 skyline boulevard, san diego',
     rate: '710,000',
     beds: 2,
@@ -103,22 +103,22 @@ export const propertyHomes: PropertyHomes[] = [
     area: 90,
     images: [
       {
-        src: "/images/properties/property5/property5.jpg",
+        src: "/images/featuredproperty/general/property_image_15.jpg",
       },
       {
-        src: "/images/properties/property5/image-2.jpg"
+        src: "/images/featuredproperty/general/property_image_17.jpg"
       },
       {
-        src: "/images/properties/property5/image-3.jpg"
+        src: "/images/featuredproperty/general/property_image_18.jpg"
       },
       {
-        src: "/images/properties/property5/image-4.jpg"
+        src: "/images/featuredproperty/general/property_image_6.jpg"
       },
     ]
   },
   {
     name: 'Imperial pearl villas',
-    slug: 'imperial-pearn-villas',
+    slug: 'imperial-pearl-villas',
     location: '18 sapphire bay road, naples',
     rate: '630,000',
     beds: 4,
@@ -126,85 +126,16 @@ export const propertyHomes: PropertyHomes[] = [
     area: 130,
     images: [
       {
-        src: "/images/properties/property6/property6.jpg",
+        src: "/images/featuredproperty/hero/hero_04.jpg",
       },
       {
-        src: "/images/properties/property6/image-2.jpg"
+        src: "/images/featuredproperty/general/property_image_4.jpg"
       },
       {
-        src: "/images/properties/property6/image-3.jpg"
+        src: "/images/featuredproperty/general/property_image_5.jpg"
       },
       {
-        src: "/images/properties/property6/image-4.jpg"
-      },
-    ]
-  },
-  {
-    name: 'Opulent haven villas',
-    slug: 'opulent-heven-villas',
-    location: '22 ocean breeze drive, malibu',
-    rate: '620,000',
-    beds: 6,
-    baths: 3,
-    area: 180,
-    images: [
-      {
-        src: "/images/properties/property7.jpg",
-      },
-      {
-        src: "/images/properties/property9.jpg"
-      },
-      {
-        src: "/images/properties/property2.jpg"
-      },
-      {
-        src: "/images/properties/property5.jpg"
-      },
-    ]
-  },
-  {
-    name: 'Elite crest villas',
-    slug: 'elite-crest-villas',
-    location: '10 palm view lane, beverly hills',
-    rate: '750,000',
-    beds: 4,
-    baths: 3,
-    area: 150,
-    images: [
-      {
-        src: "/images/properties/property8.jpg",
-      },
-      {
-        src: "/images/properties/property2.jpg"
-      },
-      {
-        src: "/images/properties/property4.jpg"
-      },
-      {
-        src: "/images/properties/property7.jpg"
-      },
-    ]
-  },
-  {
-    name: 'Majestic bay villas',
-    slug: 'majestic-bay-villas',
-    location: '8 sunset cove, miami beach',
-    rate: '680,000',
-    beds: 4,
-    baths: 2,
-    area: 120,
-    images: [
-      {
-        src: "/images/properties/property9.jpg",
-      },
-      {
-        src: "/images/properties/property3.jpg"
-      },
-      {
-        src: "/images/properties/property5.jpg"
-      },
-      {
-        src: "/images/properties/property9.jpg"
+        src: "/images/featuredproperty/general/property_image_7.jpg"
       },
     ]
   },

@@ -178,15 +178,12 @@ const FeaturedProperty: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-10">
-              <Link href="/contactus" className="py-4 px-8 bg-primary hover:bg-dark duration-300 rounded-full text-white">
+              <Link href="/contactus" className="py-4 px-8 bg-[#bfa77a] hover:bg-[#212224] duration-300 rounded-full text-white">
                 Get in touch
               </Link>
               <div>
-                <h4 className="text-3xl text-dark dark:text-white font-medium">
-                  $1,650,500
-                </h4>
-                <p className="text-base text-dark/50">
-                  Discounted price
+                <p className="text-base text-dark/50 dark:text-white/50">
+                  Premium luxury villa
                 </p>
               </div>
             </div>
