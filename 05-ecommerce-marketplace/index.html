@@ -2055,7 +2055,7 @@
             const productCards = Array.from(gridContainer.querySelectorAll('.col-lg-4.col-md-6.mb-4'));
             if (productCards.length === 0) return;
 
-            const itemsPerPage = 12;
+            const itemsPerPage = 6;
             let currentPage = 1;
 
             const pagination = document.querySelector('nav .pagination');
@@ -2063,6 +2063,19 @@
             const nextBtn = document.getElementById('gridNext');
 
             const totalPages = Math.max(1, Math.ceil(productCards.length / itemsPerPage));
+
+            // Hide page number links that exceed total pages and handle ellipsis visibility
+            const pageNumberLinks = Array.from(pagination.querySelectorAll('a.page-link[data-page]'));
+            pageNumberLinks.forEach(link => {
+                const pageNum = parseInt(link.getAttribute('data-page'), 10);
+                if (!Number.isNaN(pageNum)) {
+                    link.parentElement.style.display = pageNum <= totalPages ? '' : 'none';
+                }
+            });
+            const ellipsisItem = pagination.querySelector('.page-item.disabled');
+            if (ellipsisItem) {
+                ellipsisItem.style.display = totalPages <= 3 ? 'none' : '';
+            }
 
             function renderPage(page) {
                 currentPage = Math.min(Math.max(1, page), totalPages);
